@@ -1,7 +1,7 @@
 {
-  "name": "sp-utils-gacontructor",
+  "name": "sp-utils-gaconstructor",
   "version": "0.0.1",
-  "homepage": "https://github.com/lexich/sp-utils-gacontructor",
+  "homepage": "https://github.com/lexich/sp-utils-gaconstructor",
   "authors": [
     "lexich121@gmail.com"
   ],
@@ -9,7 +9,7 @@
   "main": "build/GAConstructor.js",
   "moduleType": [
     "amd",
-    "globals"
+    "node"
   ],
   "keywords": [
     "sp-utils",

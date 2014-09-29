@@ -5,14 +5,15 @@ Holder = function($) {
   return GAConstructor = (function() {
     GAConstructor.version = "0.0.6";
 
-    function GAConstructor(KEY, Backbone) {
+    function GAConstructor(KEY, Backbone, isUniversal) {
       var ga, s;
+      this.isUniversal = isUniversal != null ? isUniversal : false;
       window._gaq = window._gaq || [];
       _gaq.push(['_setAccount', KEY]);
       ga = document.createElement("script");
       ga.type = "text/javascript";
       ga.async = true;
-      ga.src = ("https:" === document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+      ga.src = this._getTrackerScript();
       s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(ga, s);
       if (Backbone != null) {
@@ -25,6 +26,16 @@ Holder = function($) {
         this.trackPageView();
       }
     }
+
+    GAConstructor.prototype._getTrackerScript = function() {
+      var isSecure;
+      isSecure = document.location.protocol === 'https:';
+      if (this.isUniversal) {
+        return (isSecure ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+      } else {
+        return (isSecure ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
+      }
+    };
 
     GAConstructor.prototype.initElementClick = function($el, category, actions, labels) {
       if (actions == null) {

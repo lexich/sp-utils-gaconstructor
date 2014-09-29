@@ -33,7 +33,8 @@ Holder = ($)->
       $el.attr "data-ga-click",""
 
     trackPageView:->
-      window._gaq.push ['_trackPageview', window.location.href]
+      path = location.protocol+ '//' + location.host  + location.pathname + location.hash
+      window._gaq.push ['_trackPageview', path]
 
     trackEvent:(category,actions="",labels="")->
       window._gaq.push ['_trackEvent',category, actions, labels]

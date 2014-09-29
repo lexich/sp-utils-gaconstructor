@@ -62,7 +62,9 @@ Holder = function($) {
     };
 
     GAConstructor.prototype.trackPageView = function() {
-      return window._gaq.push(['_trackPageview', window.location.href]);
+      var path;
+      path = location.protocol + '//' + location.host + location.pathname + location.hash;
+      return window._gaq.push(['_trackPageview', path]);
     };
 
     GAConstructor.prototype.trackEvent = function(category, actions, labels) {

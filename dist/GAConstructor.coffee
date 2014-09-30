@@ -1,6 +1,6 @@
 Holder = ($)->
   class GAConstructor
-    @version = "0.0.6"
+    @version = "0.0.7"
     constructor:(KEY, Backbone, @isUniversal = false)->
       window._gaq = window._gaq || []
       _gaq.push ['_setAccount', KEY]

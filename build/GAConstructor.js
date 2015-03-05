@@ -3,7 +3,7 @@ var Holder;
 Holder = function($) {
   var GAConstructor;
   return GAConstructor = (function() {
-    GAConstructor.version = "0.0.7";
+    GAConstructor.version = "0.0.8";
 
     function GAConstructor(KEY, Backbone, isUniversal) {
       var ga, s;
@@ -74,7 +74,7 @@ Holder = function($) {
       if (labels == null) {
         labels = "";
       }
-      return window._gaq.push(['_trackEvent', category, actions, labels]);
+      return window._gaq.push(['_trackEvent', category, actions, "" + labels]);
     };
 
     return GAConstructor;

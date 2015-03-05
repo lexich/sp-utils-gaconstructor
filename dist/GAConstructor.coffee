@@ -37,7 +37,7 @@ Holder = ($)->
       window._gaq.push ['_trackPageview', path]
 
     trackEvent:(category,actions="",labels="")->
-      window._gaq.push ['_trackEvent',category, actions, labels]
+      window._gaq.push ['_trackEvent',category, actions, "" + labels]
 
 if (typeof define is 'function') and (typeof define.amd is 'object') and define.amd
   define ["jquery"], ($)-> Holder($)

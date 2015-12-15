@@ -3,19 +3,25 @@ var Holder;
 Holder = function($) {
   var GAConstructor;
   return GAConstructor = (function() {
-    GAConstructor.version = "0.0.8";
+    GAConstructor.version = "0.0.9";
 
-    function GAConstructor(KEY, Backbone, isUniversal) {
-      var ga, s;
-      this.isUniversal = isUniversal != null ? isUniversal : false;
-      window._gaq = window._gaq || [];
-      _gaq.push(['_setAccount', KEY]);
-      ga = document.createElement("script");
-      ga.type = "text/javascript";
-      ga.async = true;
-      ga.src = this._getTrackerScript();
+    function GAConstructor(KEY, Backbone, displayfeatures) {
+      var analyticsScript, s;
+      if (displayfeatures == null) {
+        displayfeatures = false;
+      }
+      window.ga = window.ga || function() {
+        (ga.q = ga.q || []).push(arguments);
+      };
+      ga.l = +(new Date);
+      ga('create', KEY, 'auto');
+      if (displayfeatures) {
+        ga('require', 'displayfeatures');
+      }
+      ga('send', 'pageview');
+      analyticsScript = this._getTrackerScript();
       s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(ga, s);
+      s.parentNode.insertBefore(analyticsScript, s);
       if (Backbone != null) {
         Backbone.history.on("route", (function(_this) {
           return function() {
@@ -28,31 +34,31 @@ Holder = function($) {
     }
 
     GAConstructor.prototype._getTrackerScript = function() {
-      var isSecure;
+      var analyticsScript, isSecure;
+      analyticsScript = document.createElement("script");
+      analyticsScript.type = "text/javascript";
+      analyticsScript.async = true;
       isSecure = document.location.protocol === 'https:';
-      if (this.isUniversal) {
-        return (isSecure ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-      } else {
-        return (isSecure ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
-      }
+      analyticsScript.src = (isSecure ? 'https://' : 'http://') + 'www.google-analytics.com/analytics.js';
+      return analyticsScript;
     };
 
-    GAConstructor.prototype.initElementClick = function($el, category, actions, labels) {
-      if (actions == null) {
-        actions = "";
+    GAConstructor.prototype.initElementClick = function($el, category, action, label) {
+      if (action == null) {
+        action = "";
       }
-      if (labels == null) {
-        labels = "";
+      if (label == null) {
+        label = "";
       }
       if ($el.attr("data-ga-click")) {
         return;
       }
       $el.click((function(_this) {
         return function() {
-          return _this.trackEvent(category, actions, labels);
+          return _this.trackEvent(category, action, label);
         };
       })(this));
-      $el.attr("data-ga-click", "" + category + ";" + actions + ";" + labels);
+      $el.attr("data-ga-click", "" + category + ";" + action + ";" + label);
       return $el;
     };
 
@@ -64,17 +70,14 @@ Holder = function($) {
     GAConstructor.prototype.trackPageView = function() {
       var path;
       path = location.protocol + '//' + location.host + location.pathname + location.hash;
-      return window._gaq.push(['_trackPageview', path]);
+      return ga('send', 'pageview', path);
     };
 
-    GAConstructor.prototype.trackEvent = function(category, actions, labels) {
-      if (actions == null) {
-        actions = "";
+    GAConstructor.prototype.trackEvent = function(category, action, label) {
+      if (label == null) {
+        label = "";
       }
-      if (labels == null) {
-        labels = "";
-      }
-      return window._gaq.push(['_trackEvent', category, actions, "" + labels]);
+      return ga('send', 'event', category, action, label);
     };
 
     return GAConstructor;

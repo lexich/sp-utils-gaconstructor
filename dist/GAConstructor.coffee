@@ -1,6 +1,6 @@
 Holder = ($)->
   class GAConstructor
-    @version = "0.0.9"
+    @version = "0.0.10"
     constructor:(KEY, Backbone, displayfeatures = false)->
       window.ga = window.ga or ->
         (ga.q = ga.q or []).push arguments
@@ -8,7 +8,6 @@ Holder = ($)->
       ga.l = +new Date
       ga 'create', KEY, 'auto'
       ga('require', 'displayfeatures') if displayfeatures
-      ga 'send', 'pageview'
       analyticsScript = @_getTrackerScript()
       s = document.getElementsByTagName("script")[0]
       s.parentNode.insertBefore analyticsScript, s

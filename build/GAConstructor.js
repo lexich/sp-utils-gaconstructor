@@ -3,7 +3,7 @@ var Holder;
 Holder = function($) {
   var GAConstructor;
   return GAConstructor = (function() {
-    GAConstructor.version = "0.0.9";
+    GAConstructor.version = "0.0.10";
 
     function GAConstructor(KEY, Backbone, displayfeatures) {
       var analyticsScript, s;
@@ -18,7 +18,6 @@ Holder = function($) {
       if (displayfeatures) {
         ga('require', 'displayfeatures');
       }
-      ga('send', 'pageview');
       analyticsScript = this._getTrackerScript();
       s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(analyticsScript, s);

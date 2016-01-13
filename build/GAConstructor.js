@@ -3,7 +3,7 @@ var Holder;
 Holder = function($) {
   var GAConstructor;
   return GAConstructor = (function() {
-    GAConstructor.version = "0.0.11";
+    GAConstructor.version = "0.1.0";
 
     function GAConstructor(KEY, Backbone, displayfeatures) {
       var analyticsScript, s;

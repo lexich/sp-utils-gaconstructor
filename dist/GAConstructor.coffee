@@ -1,6 +1,6 @@
 Holder = ($)->
   class GAConstructor
-    @version = "0.0.11"
+    @version = "0.1.0"
     constructor:(KEY, Backbone, displayfeatures = false)->
       window.ga = window.ga or ->
         (ga.q = ga.q or []).push arguments

@@ -1,6 +1,6 @@
 Holder = ($)->
   class GAConstructor
-    @version = "0.0.10"
+    @version = "0.0.11"
     constructor:(KEY, Backbone, displayfeatures = false)->
       window.ga = window.ga or ->
         (ga.q = ga.q or []).push arguments
@@ -37,7 +37,12 @@ Holder = ($)->
 
     trackPageView:->
       path = location.protocol + '//' + location.host  + location.pathname + location.hash
-      ga 'send', 'pageview', path
+#      ga 'send', 'pageview', path
+      ga 'send', {
+        hitType: 'pageview'
+        page: location.pathname + location.hash
+        location: path
+      }
 
     trackEvent: (category, action, label="")->
       ga 'send', 'event', category, action, label

@@ -1,13 +1,14 @@
 Holder = ($)->
   class GAConstructor
     @version = "0.1.0"
-    constructor:(KEY, Backbone, displayfeatures = false)->
+    constructor:(KEY, Backbone, displayfeatures = false, anonymize = false)->
       window.ga = window.ga or ->
         (ga.q = ga.q or []).push arguments
         return
       ga.l = +new Date
       ga 'create', KEY, 'auto'
       ga('require', 'displayfeatures') if displayfeatures
+      ga('set', 'anonymizeIp', true) if anonymize
       analyticsScript = @_getTrackerScript()
       s = document.getElementsByTagName("script")[0]
       s.parentNode.insertBefore analyticsScript, s

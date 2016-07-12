@@ -5,10 +5,13 @@ Holder = function($) {
   return GAConstructor = (function() {
     GAConstructor.version = "0.1.0";
 
-    function GAConstructor(KEY, Backbone, displayfeatures) {
+    function GAConstructor(KEY, Backbone, displayfeatures, anonymize) {
       var analyticsScript, s;
       if (displayfeatures == null) {
         displayfeatures = false;
+      }
+      if (anonymize == null) {
+        anonymize = false;
       }
       window.ga = window.ga || function() {
         (ga.q = ga.q || []).push(arguments);
@@ -17,6 +20,9 @@ Holder = function($) {
       ga('create', KEY, 'auto');
       if (displayfeatures) {
         ga('require', 'displayfeatures');
+      }
+      if (anonymize) {
+        ga('set', 'anonymizeIp', true);
       }
       analyticsScript = this._getTrackerScript();
       s = document.getElementsByTagName("script")[0];

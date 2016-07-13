@@ -1,6 +1,6 @@
 {
   "name": "sp-utils-gaconstructor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "build/GAConstructor.js",
   "scripts": {},

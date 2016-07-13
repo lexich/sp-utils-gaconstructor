@@ -1,6 +1,6 @@
 Holder = ($)->
   class GAConstructor
-    @version = "0.1.0"
+    @version = "0.1.1"
     constructor:(KEY, Backbone, displayfeatures = false, anonymize = false)->
       window.ga = window.ga or ->
         (ga.q = ga.q or []).push arguments
@@ -22,7 +22,7 @@ Holder = ($)->
       analyticsScript.type = "text/javascript"
       analyticsScript.async = true
       isSecure = document.location.protocol is 'https:'
-      analyticsScript.src = (if isSecure then 'https://' else 'http://') + 
+      analyticsScript.src = (if isSecure then 'https://' else 'http://') +
         'www.google-analytics.com/analytics.js'
       analyticsScript
 
@@ -38,7 +38,6 @@ Holder = ($)->
 
     trackPageView:->
       path = location.protocol + '//' + location.host  + location.pathname + location.hash
-#      ga 'send', 'pageview', path
       ga 'send', {
         hitType: 'pageview'
         page: location.pathname + location.hash
